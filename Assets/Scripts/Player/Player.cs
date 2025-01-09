@@ -25,20 +25,21 @@ public class Player : MonoBehaviour
     public float playerSwipeDuration = .1f;
 
     private float _currentSpeed;
+    private bool _isFacingRight = true;
 
     private void Update()
     {
         HandleJump();
         HandleMovement();
-        
+
     }
 
     private void HandleMovement()
     {
-        if(Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             _currentSpeed = speedRun;
-           animator.speed = 2;
+            animator.speed = 2;
         }
         else
         {
@@ -50,8 +51,9 @@ public class Player : MonoBehaviour
         {
             //myRigidbody.MovePosition(myRigidbody.position - velocity * Time.deltaTime);
             myRigidbody.velocity = new Vector2(-_currentSpeed, myRigidbody.velocity.y);
-            if (myRigidbody.transform.localScale.x != -1)
+            if (_isFacingRight)
             {
+                _isFacingRight = false;
                 myRigidbody.transform.DOScaleX(-1, playerSwipeDuration);
             }
             animator.SetBool(boolRun, true);
@@ -60,8 +62,9 @@ public class Player : MonoBehaviour
         {
             //myRigidbody.MovePosition(myRigidbody.position + velocity * Time.deltaTime);
             myRigidbody.velocity = new Vector2(_currentSpeed, myRigidbody.velocity.y);
-            if (myRigidbody.transform.localScale.x != -1)
+            if (!_isFacingRight)
             {
+                _isFacingRight = true;
                 myRigidbody.transform.DOScaleX(1, playerSwipeDuration);
             }
             animator.SetBool(boolRun, true);
@@ -87,10 +90,18 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             myRigidbody.velocity = Vector2.up * forceJump;
-            myRigidbody.transform.localScale = Vector2.one;
+
+            // Manter a direção do personagem
+            if (_isFacingRight)
+            {
+                myRigidbody.transform.localScale = new Vector3(1, myRigidbody.transform.localScale.y, myRigidbody.transform.localScale.z);
+            }
+            else
+            {
+                myRigidbody.transform.localScale = new Vector3(-1, myRigidbody.transform.localScale.y, myRigidbody.transform.localScale.z);
+            }
 
             DOTween.Kill(myRigidbody.transform);
-
             HandleScaleJump();
         }
     }
