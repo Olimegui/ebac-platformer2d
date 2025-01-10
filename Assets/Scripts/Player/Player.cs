@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
+    private int _playerDirection = 1;
 
     [Header("Speed setup")]
     public Vector2 friction = new Vector2(-.1f, 0);
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
                 myRigidbody.transform.DOScaleX(-1, playerSwipeDuration);
             }
             animator.SetBool(boolRun, true);
+            _playerDirection = -1;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -68,6 +70,7 @@ public class Player : MonoBehaviour
                 myRigidbody.transform.DOScaleX(1, playerSwipeDuration);
             }
             animator.SetBool(boolRun, true);
+            _playerDirection = 1;
         }
         else
         {
@@ -91,24 +94,32 @@ public class Player : MonoBehaviour
         {
             myRigidbody.velocity = Vector2.up * forceJump;
 
-            // Manter a direção do personagem
-            if (_isFacingRight)
-            {
-                myRigidbody.transform.localScale = new Vector3(1, myRigidbody.transform.localScale.y, myRigidbody.transform.localScale.z);
-            }
-            else
-            {
-                myRigidbody.transform.localScale = new Vector3(-1, myRigidbody.transform.localScale.y, myRigidbody.transform.localScale.z);
-            }
+            if (tween != null)
+                tween.Kill();
+            
 
             DOTween.Kill(myRigidbody.transform);
             HandleScaleJump();
         }
     }
 
+    private Tweener tween;
+
     private void HandleScaleJump()
     {
         myRigidbody.transform.DOScaleY(JumpScaleY, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-        myRigidbody.transform.DOScaleX(JumpScaleX, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        tween = DOTween.To(ScaleXGetter,ScaleXSetter,JumpScaleX, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+    }
+
+    private float ScaleXGetter()
+    {
+        return myRigidbody.transform.localScale.x;
+    }
+
+    private void ScaleXSetter(float value)
+    {
+        var s = myRigidbody.transform.localScale;
+        s.x = value * _playerDirection;
+        myRigidbody.transform.localScale = s;
     }
 }
