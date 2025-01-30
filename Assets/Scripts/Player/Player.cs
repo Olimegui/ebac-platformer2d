@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
     private void ScaleXSetter(float value)
     {
         var s = myRigidbody.transform.localScale;
-        s.x = value * _playerDirection;
+        s.x = _isFacingRight ? (value < 0  ? -value : value) : (value > 0 ? -value : value);
         myRigidbody.transform.localScale = s;
     }
 
