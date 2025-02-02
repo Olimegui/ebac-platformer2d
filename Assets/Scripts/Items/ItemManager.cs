@@ -8,7 +8,7 @@ using Ebac.Core.Singleton;
 public class ItemManager : Singleton<ItemManager>
 {
 
-    public int coins;
+    public SOInt coins;
     public TextMeshProUGUI CoinCounterText;
 
     private void Start()
@@ -19,19 +19,19 @@ public class ItemManager : Singleton<ItemManager>
 
     private void Reset()
     {
-        coins = 0;
+        coins.value = 0;
     }
 
     public void AddCoins(int amount = 1)
     {
-        coins += amount;
+        coins.value += amount;
         UpdateCoinCounter();
     }
     private void UpdateCoinCounter()
     {
         if (CoinCounterText != null)
         {
-            CoinCounterText.text = "Moedas: " + coins.ToString();
+            CoinCounterText.text = "Moedas: " + coins.value.ToString();
         }
     }
 }

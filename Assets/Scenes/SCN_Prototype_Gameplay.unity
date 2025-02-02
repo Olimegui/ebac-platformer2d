@@ -752,9 +752,9 @@ MonoBehaviour:
   speed: 21
   speedRun: 21
   forceJump: 25
-  JumpScaleY: 1.1
-  JumpScaleX: 0.7
-  animationDuration: 0.3
+  soJumpScaleY: {fileID: 11400000, guid: fe026c4fa2cdb8e48a37f23a2679a642, type: 2}
+  soJumpScaleX: {fileID: 11400000, guid: 217a3a338a752294f87b93ff620031f0, type: 2}
+  soanimationDuration: {fileID: 11400000, guid: 33c8e4659338b0a42b49fbdd64fde289, type: 2}
   ease: 27
   boolRun: Run
   triggerDeath: Death
@@ -4586,7 +4586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49cea56d115c6044d93b44221c0ae3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 0
+  coins: {fileID: 11400000, guid: 2cf47ffa937e230428445d1222106f23, type: 2}
   CoinCounterText: {fileID: 1568605969}
 --- !u!4 &1408708111
 Transform:
@@ -5188,6 +5188,7 @@ GameObject:
   - component: {fileID: 1568605968}
   - component: {fileID: 1568605970}
   - component: {fileID: 1568605969}
+  - component: {fileID: 1568605971}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5311,6 +5312,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568605967}
   m_CullTransparentMesh: 1
+--- !u!114 &1568605971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568605967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d044f2006326824094aeedc0fefaff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soInt: {fileID: 11400000, guid: 2cf47ffa937e230428445d1222106f23, type: 2}
+  uiTextValue: {fileID: 1568605969}
 --- !u!212 &1574795924 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3971700845632200199, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
