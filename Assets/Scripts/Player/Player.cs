@@ -134,7 +134,8 @@ public class Player : MonoBehaviour
     }
     private void PlayerJumpVFX()
     {
-        if (jumpVFX != null) jumpVFX.Play();
+        VFXManager.Instance.PlayerVFXByType(VFXManager.VFXType.JUMP, transform.position);
+        //if (jumpVFX != null) jumpVFX.Play();
 
     }
     private Tweener tween;
