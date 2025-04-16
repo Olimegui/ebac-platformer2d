@@ -27,11 +27,12 @@ public class ItemManager : Singleton<ItemManager>
         coins.value += amount;
         UpdateCoinCounter();
     }
+    
     private void UpdateCoinCounter()
     {
-        if (CoinCounterText != null)
+        if(CoinCounterText != null)
         {
-            CoinCounterText.text = "Moedas: " + coins.value.ToString();
+          CoinCounterText.text = "Moedas" + coins.value.ToString();
         }
     }
 }
